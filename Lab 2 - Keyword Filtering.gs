@@ -10,7 +10,7 @@ function doPost(e) {
 
   // 取出 replayToken 和發送的訊息文字
   var replyToken = msg.events[0].replyToken;
-  var userMessage = price;
+  var userMessage = msg.events[0].message.text;
 
   if (typeof replyToken === 'undefined') {
     return;
@@ -19,6 +19,8 @@ function doPost(e) {
   if (userMessage.toLowerCase() != 'gas') {
     return;
   }
+  
+  userMessage = price;
 
   var url = 'https://api.line.me/v2/bot/message/reply';
   UrlFetchApp.fetch(url, {
@@ -31,7 +33,7 @@ function doPost(e) {
       'replyToken': replyToken,
       'messages': [{
         'type': 'text',
-        'text': userMessage+' ( google )',
+        'text': userMessage,
       }],
     }),
   });
