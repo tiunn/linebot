@@ -10,14 +10,15 @@ function doPost(e) {
 
   // 取出 replayToken 和發送的訊息文字
   var replyToken = msg.events[0].replyToken;
+  var userMessage = msg.events[0].message.text;
 
   if (typeof replyToken === 'undefined') {
     return;
   }
   
-  switch (keyword[0]) {
+  switch (userMessage.toLowerCase()) {
     case 'gas':
-      var userMessage = price;
+      userMessage = price;
       break;
     default:
       return;
