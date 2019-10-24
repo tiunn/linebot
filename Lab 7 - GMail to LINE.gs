@@ -23,17 +23,30 @@ function gmailToLINE() {
 
   for (var i = 0; i < messages.length; i++) {
     var message = messages[i];
-    var userMessage = '*New Email*';
-    userMessage += '\n*from:* ' + message.getFrom();
-    userMessage += '\n*to:* ' + message.getTo();
-    userMessage += '\n*cc:* ' + message.getCc();
-    userMessage += '\n*date:* ' + message.getDate();
-    userMessage += '\n*subject:* ' + message.getSubject();
-
-    
-    var response = sendMessage('multicast', toArray, userMessage);
-    if (response.getResponseCode() == 200) {
-      label.removeFromThreads(threads);
-    }
+    var output = '*New Email*';
+    output += '\n*from:* ' + message.getFrom();
+    output += '\n*to:* ' + message.getTo();
+    output += '\n*cc:* ' + message.getCc();
+    output += '\n*date:* ' + message.getDate();
+    output += '\n*subject:* ' + message.getSubject();
   }
+
+  var userMessage = output;
+
+  var url = 'https://api.line.me/v2/bot/message/multicast';
+  UrlFetchApp.fetch(url, {
+      'headers': {
+      'Content-Type': 'application/json; charset=UTF-8',
+      'Authorization': 'Bearer ' + CHANNEL_ACCESS_TOKEN,
+    },
+    'method': 'post',
+    'payload': JSON.stringify({
+      'to': toArray,
+      'messages': [{
+        'type': 'text',
+        'text': userMessage,
+      }],
+    }),
+  });
+  label.removeFromThreads(threads);
 }
