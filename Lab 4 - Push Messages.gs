@@ -13,7 +13,7 @@ function doPush() {
     return;
   }
 
-  var url = 'https://api.line.me/v2/bot/message/reply';
+  var url = 'https://api.line.me/v2/bot/message/push';
   UrlFetchApp.fetch(url, {
       'headers': {
       'Content-Type': 'application/json; charset=UTF-8',
