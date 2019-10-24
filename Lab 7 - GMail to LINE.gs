@@ -1,5 +1,16 @@
 function gmailToLINE() {
-  var toArray = getFriends();
+
+  var CHANNEL_ACCESS_TOKEN = '你的 Channel access token';
+
+  var spreadsheet = SpreadsheetApp.getActiveSpreadsheet();
+  var sheet = spreadsheet.getSheetByName('Friends');
+  var numFriends = sheet.getLastRow();  
+  var toArray = [];
+
+  for (var i = 1; i <= numFriends; i++) {
+    toArray.push(sheet.getRange(i, 1).getValue());
+  }
+
   var label = GmailApp.getUserLabelByName('ToLINE');
   var messages = [];
   var threads = label.getThreads();
@@ -18,7 +29,8 @@ function gmailToLINE() {
     userMessage += '\n*cc:* ' + message.getCc();
     userMessage += '\n*date:* ' + message.getDate();
     userMessage += '\n*subject:* ' + message.getSubject();
-    //userMessage += '\n*body:* ' + message.getPlainBody();
+
+    
     var response = sendMessage('multicast', toArray, userMessage);
     if (response.getResponseCode() == 200) {
       label.removeFromThreads(threads);
