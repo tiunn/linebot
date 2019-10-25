@@ -36,7 +36,7 @@ function doPost(e) {
       'replyToken': replyToken,
       'messages': [{
         'type': 'text',
-        'text': userMessage+' ( google )',
+        'text': userMessage,
       }],
     }),
   });
