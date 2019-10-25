@@ -1,11 +1,9 @@
-function gmailToLINE() {
+function gmailToLINE1() {
 
-  var CHANNEL_ACCESS_TOKEN = '你的 Channel access token';
-
-  var spreadsheet = SpreadsheetApp.getActiveSpreadsheet();
   var sheet = spreadsheet.getSheetByName('Friends');
   var numFriends = sheet.getLastRow();  
   var toArray = [];
+  var url = 'https://api.line.me/v2/bot/message/multicast';
 
   for (var i = 1; i <= numFriends; i++) {
     toArray.push(sheet.getRange(i, 1).getValue());
@@ -21,20 +19,18 @@ function gmailToLINE() {
     messages = messages.concat(threads[i].getMessages())
   }
 
+  var output = '';
   for (var i = 0; i < messages.length; i++) {
     var message = messages[i];
-    var output = '*New Email*';
+    output += '\n\n*New Email*';
     output += '\n*from:* ' + message.getFrom();
     output += '\n*to:* ' + message.getTo();
     output += '\n*cc:* ' + message.getCc();
     output += '\n*date:* ' + message.getDate();
     output += '\n*subject:* ' + message.getSubject();
   }
-
-  var userMessage = output;
-
-  var url = 'https://api.line.me/v2/bot/message/multicast';
-  UrlFetchApp.fetch(url, {
+    
+  var response = UrlFetchApp.fetch(url, {
       'headers': {
       'Content-Type': 'application/json; charset=UTF-8',
       'Authorization': 'Bearer ' + CHANNEL_ACCESS_TOKEN,
@@ -44,9 +40,11 @@ function gmailToLINE() {
       'to': toArray,
       'messages': [{
         'type': 'text',
-        'text': userMessage,
+        'text': output,
       }],
     }),
   });
-  label.removeFromThreads(threads);
+  if (response.getResponseCode() == 200) {
+    label.removeFromThreads(threads);
+  }
 }
