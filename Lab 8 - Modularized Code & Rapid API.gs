@@ -85,20 +85,22 @@ function gmailToLINE() {
   for (var i = 0; i < threads.length; i++) {
     messages = messages.concat(threads[i].getMessages())
   }
+  
+  var userMessage = '';
 
   for (var i = 0; i < messages.length; i++) {
     var message = messages[i];
-    var userMessage = '*New Email*';
+    userMessage += '*New Email*';
     userMessage += '\n*from:* ' + message.getFrom();
     userMessage += '\n*to:* ' + message.getTo();
     userMessage += '\n*cc:* ' + message.getCc();
     userMessage += '\n*date:* ' + message.getDate();
-    userMessage += '\n*subject:* ' + message.getSubject();
+    userMessage += '\n*subject:* ' + message.getSubject() + '\n\n\n';
     //userMessage += '\n*body:* ' + message.getPlainBody();
-    var response = sendMessage('multicast', toArray, userMessage);
-    if (response.getResponseCode() == 200) {
-      label.removeFromThreads(threads);
-    }
+  }
+  var response = sendMessage('multicast', toArray, userMessage);
+  if (response.getResponseCode() == 200) {
+    label.removeFromThreads(threads);
   }
 }
 
