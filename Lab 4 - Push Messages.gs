@@ -8,10 +8,9 @@ function doPush() {
   
   sheet = spreadsheet.getSheetByName('Price');
   var price = sheet.getRange("a2").getValue();
+  
+  var userMessage = price;
 
-  if (typeof replyToken === 'undefined') {
-    return;
-  }
 
   var url = 'https://api.line.me/v2/bot/message/push';
   UrlFetchApp.fetch(url, {
