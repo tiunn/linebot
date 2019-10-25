@@ -107,17 +107,23 @@ function gmailToLINE() {
 function sendMessage(sendType, destination, text) {
   var url = baseURL + sendType;
   var payload = {
-    'to': destination,
     'messages': [{
       'type': 'text',
-      'text': text,
       }],
   };
+  
+  if (text === undefined && sendType === 'broadcast') {
+    text = destination;
+  } else {
+    payload.to = destination;
+  }
+  payload.messages[0].text = text;
   
   if (sendType == 'reply') {
     payload.replyToken = destination;
     delete payload.to;
   }
+
   var response = UrlFetchApp.fetch(url, {
       'headers': {
       'Content-Type': 'application/json; charset=UTF-8',
