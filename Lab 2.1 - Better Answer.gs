@@ -4,6 +4,7 @@ function doPost(e) {
   var msg = JSON.parse(e.postData.contents);
   console.log(msg);
 
+  var spreadsheet = SpreadsheetApp.getActiveSpreadsheet();
   var sheet = spreadsheet.getSheetByName('Price');
   var price = sheet.getRange("a2").getValue();
 
