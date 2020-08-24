@@ -5,7 +5,7 @@ function doPost(e) {
   console.log(msg);
 
   var spreadsheet = SpreadsheetApp.getActiveSpreadsheet();
-  var sheet = spreadsheet.getSheetByName('Price');
+  var sheet = spreadsheet.getSheetByName('你的工作表名稱');
   var price = sheet.getRange("a2").getValue();
 
 
