@@ -4,8 +4,6 @@ var cellName = '訊息格';
 
 function doPush() {
 
-  var CHANNEL_ACCESS_TOKEN = '你的 Channel access token';
-
   var spreadsheet = SpreadsheetApp.getActiveSpreadsheet();
   var sheet = spreadsheet.getSheetByName(sheetName);
   var toID = sheet.getRange(cellName).getValue();
