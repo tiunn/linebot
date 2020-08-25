@@ -1,10 +1,14 @@
+var CHANNEL_ACCESS_TOKEN = '你的 Channel access token';
+var sheetName = '你的Friend工作表名稱';
+var cellName = '訊息格';
+
 function doPush() {
 
   var CHANNEL_ACCESS_TOKEN = '你的 Channel access token';
 
   var spreadsheet = SpreadsheetApp.getActiveSpreadsheet();
-  var sheet = spreadsheet.getSheetByName('Friends');
-  var toID = sheet.getRange("a1").getValue();
+  var sheet = spreadsheet.getSheetByName(sheetName);
+  var toID = sheet.getRange(cellName).getValue();
   
   sheet = spreadsheet.getSheetByName('Price');
   var price = sheet.getRange("a2").getValue();
