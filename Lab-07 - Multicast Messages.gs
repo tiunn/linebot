@@ -1,9 +1,11 @@
+var CHANNEL_ACCESS_TOKEN = '你的 Channel access token';
+var sheetName = '你的Friend工作表名稱';
+var cellName = '訊息格';
+
 function doMulticast() {
 
-  var CHANNEL_ACCESS_TOKEN = '你的 Channel access token';
-
   var spreadsheet = SpreadsheetApp.getActiveSpreadsheet();
-  var sheet = spreadsheet.getSheetByName('Friends');
+  var sheet = spreadsheet.getSheetByName(sheetName);
   var numFriends = sheet.getLastRow();
   var toArray = [];
   
@@ -12,7 +14,7 @@ function doMulticast() {
   }
 
   sheet = spreadsheet.getSheetByName('Price');
-  var price = sheet.getRange("a2").getValue();
+  var price = sheet.getRange(cellName).getValue();
   
   var userMessage = price;
 
