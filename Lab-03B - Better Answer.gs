@@ -1,3 +1,7 @@
+var CHANNEL_ACCESS_TOKEN = '你的 Channel access token';
+var sheetName = '你的工作表名稱';
+var cellName = '訊息格';
+
 function doPost(e) {
 
   var CHANNEL_ACCESS_TOKEN = '你的 Channel access token';
@@ -5,8 +9,8 @@ function doPost(e) {
   console.log(msg);
 
   var spreadsheet = SpreadsheetApp.getActiveSpreadsheet();
-  var sheet = spreadsheet.getSheetByName('Price');
-  var price = sheet.getRange("a2").getValue();
+  var sheet = spreadsheet.getSheetByName(sheetName);
+  var price = sheet.getRange(cellName).getValue();
 
 
   // 取出 replayToken 和發送的訊息文字
