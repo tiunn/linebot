@@ -1,6 +1,10 @@
+var CHANNEL_ACCESS_TOKEN = '你的 Channel access token';
+var sheetName = '你的Friend工作表名稱';
+var cellName = '訊息格';
+
 function gmailToLINE1() {
 
-  var sheet = spreadsheet.getSheetByName('Friends');
+  var sheet = spreadsheet.getSheetByName(sheetName);
   var numFriends = sheet.getLastRow();  
   var toArray = [];
   var url = 'https://api.line.me/v2/bot/message/multicast';
