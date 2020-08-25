@@ -1,6 +1,6 @@
+var CHANNEL_ACCESS_TOKEN = '你的 Channel access token';
 function doPost(e) {
 
-  var CHANNEL_ACCESS_TOKEN = '你的 Channel access token';
   var msg = JSON.parse(e.postData.contents);
   console.log(msg);
 
